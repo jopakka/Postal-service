@@ -1,3 +1,5 @@
+using System;
+using Inventory;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +9,14 @@ public class HudManager : MonoBehaviour
     [SerializeField] private TMP_Text _speedTextField;
     [SerializeField] private TMP_Text _interactionTextField;
     [SerializeField] private Image _progress;
+    [SerializeField] private InventoryUiController _inventoryUi;
+    
+    public bool IsInventoryOpen => _inventoryUi.gameObject.activeInHierarchy;
+
+    private void Start()
+    {
+        _inventoryUi.gameObject.SetActive(false);
+    }
 
     public void SetSpeed(float speed)
     {
@@ -33,5 +43,15 @@ public class HudManager : MonoBehaviour
     public void ClearProgress()
     {
         _progress.gameObject.SetActive(false);
+    }
+
+    public void OpenInventory(Inventory.Inventory inventory)
+    {
+        _inventoryUi.OpenInventory(inventory);
+    }
+
+    public void CloseInventory()
+    {
+        _inventoryUi.CloseInventory();
     }
 }
